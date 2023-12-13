@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="569.0" prefWidth="861.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proiect2.AccountingAppController">
+    <children>
+        <TabPane VBox.vgrow="ALWAYS">
+            <tabs>
+                <Tab text="Dashboard">
+                    <content>
+                        <VBox>
+                            <Label fx:id="userEmailLabel" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Welcome to the accounting app: {AccountingAppController.userEmail}" textAlignment="CENTER" />
+                            <effect>
+                                <Bloom />
+                            </effect>
+                        </VBox>
+                    </content>
+                </Tab>
+                <Tab text="Transactions">
+                    <content>
+                        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="389.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
+                            <children>
+                                <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="527.0" prefWidth="859.0" VBox.vgrow="ALWAYS">
+                                    <children>
+                                        <TableView fx:id="transactionTable" layoutX="8.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="318.0" prefWidth="851.0">
+                                            <columns>
+                                                <TableColumn fx:id="idColumn" minWidth="10.0" prefWidth="75.0" text="ID" />
+                                                <TableColumn fx:id="amountColumn" minWidth="4.0" prefWidth="155.0" text="Amount" />
+                                                <TableColumn fx:id="dateColumn" prefWidth="178.0" text="Date" />
+                                                <TableColumn fx:id="measureUnitColumn" prefWidth="167.0" text="Measure Unit" />
+                                                <TableColumn fx:id="descriptionColumn" prefWidth="275.0" text="Description" />
+                                            </columns>
+                                        </TableView>
+                              <HBox layoutX="18.0" layoutY="362.0" prefHeight="75.0" prefWidth="823.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="362.0">
+                                 <children>
+                                              <TextField fx:id="amountTextField" prefHeight="25.0" prefWidth="200.0" promptText="Amount">
+                                       <HBox.margin>
+                                          <Insets left="3.0" right="3.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                              <TextField fx:id="measureUnitTextField" maxHeight="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="Measure Unit">
+                                       <HBox.margin>
+                                          <Insets left="3.0" right="3.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                              <TextField fx:id="dateTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="Date">
+                                       <HBox.margin>
+                                          <Insets left="3.0" right="3.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                              <TextField fx:id="descriptionTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="Description">
+                                       <HBox.margin>
+                                          <Insets left="3.0" right="3.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                                        <Button fx:id="addTransactionButton" layoutX="276.0" layoutY="437.0" prefHeight="40.0" prefWidth="135.0" text="Add Transaction" AnchorPane.rightAnchor="448.0" />
+                              <Button fx:id="deleteTransactionButton" layoutX="454.0" layoutY="437.0" prefHeight="40.0" prefWidth="135.0" text="Delete Transaction" AnchorPane.leftAnchor="448.0" />
+                              <Button fx:id="refreshButton" layoutX="402.0" layoutY="488.0" mnemonicParsing="false" text="Refresh" />
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            <Tab text="Transactions details">
+               <content>
+                  <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="389.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="527.0" prefWidth="859.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <TableView fx:id="transactionTable1" layoutX="8.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="318.0" prefWidth="851.0">
+                                 <columns>
+                                    <TableColumn prefWidth="75.0" text="ID" />
+                                    <TableColumn fx:id="amountColumn1" minWidth="4.0" prefWidth="155.0" text="Price" />
+                                    <TableColumn prefWidth="75.0" text="TVA" />
+                                    <TableColumn fx:id="dateColumn1" prefWidth="140.0" text="Price (no TVA)" />
+                                    <TableColumn fx:id="measureUnitColumn1" prefWidth="205.0" text="Discount" />
+                                    <TableColumn fx:id="descriptionColumn1" prefWidth="197.0" text="Total" />
+                                 </columns>
+                              </TableView>
+                              <HBox layoutX="18.0" layoutY="362.0" prefHeight="40.0" prefWidth="823.0" AnchorPane.bottomAnchor="125.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="362.0">
+                                 <children>
+                                    <TextField fx:id="amountTextField1" prefHeight="25.0" prefWidth="300.0" promptText="Price">
+                                       <HBox.margin>
+                                          <Insets left="3.0" right="3.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                    <TextField fx:id="measureUnitTextField1" maxHeight="-Infinity" prefHeight="25.0" prefWidth="300.0" promptText="TVA">
+                                       <HBox.margin>
+                                          <Insets left="3.0" right="3.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                    <TextField fx:id="dateTextField1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="300.0" promptText="DISCOUNT">
+                                       <HBox.margin>
+                                          <Insets left="3.0" right="3.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <Button fx:id="addDetailsButton" layoutX="276.0" layoutY="437.0" prefHeight="40.0" prefWidth="135.0" text="ADD" AnchorPane.rightAnchor="448.0" />
+                              <Button fx:id="deleteDetailsButton" layoutX="454.0" layoutY="437.0" prefHeight="40.0" prefWidth="135.0" text="DELETE" AnchorPane.leftAnchor="448.0" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</VBox>
