@@ -1,9 +1,5 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
 
-package com.example.proiect2;
+package com.example.BalanceBuddy;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -11,7 +7,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -155,7 +150,7 @@ public class DbFunctions {
 
                boolean var5;
                try {
-                    PreparedStatement statement = connection.prepareStatement("INSERT INTO transactions (amount, transaction_date, description, measure_unit) VALUES (?, ?, ?, ?)");
+                    PreparedStatement statement = connection.prepareStatement("INSERT INTO transactions (amount, transaction_date, description, measure_unit,supplier_name)  VALUES (?, ?, ?, ?,?)");
 
                     try {
                          statement.setDouble(1, transaction.getAmount());
@@ -163,6 +158,7 @@ public class DbFunctions {
                          statement.setDate(2, sqlDate);
                          statement.setString(3, transaction.getDescription());
                          statement.setString(4, transaction.getMeasureUnit());
+                         statement.setString(5, transaction.getsupplierName());
                          int rowsAffected = statement.executeUpdate();
                          var5 = rowsAffected > 0;
                     } catch (Throwable var8) {
@@ -203,11 +199,88 @@ public class DbFunctions {
                return false;
           }
      }
-     public static boolean deleteTransaction(int transactionId) {
+
+     public static boolean deleteTransaction(int id) {
           try {
                Connection connection = connect();
                try {
                     String query = "DELETE FROM transactions WHERE id = ?";
+                    PreparedStatement statement = connection.prepareStatement(query);
+                    statement.setInt(1, id);
+                    int rowsAffected = statement.executeUpdate();
+                    return rowsAffected > 0;
+               } finally {
+                    if (connection != null) {
+                         connection.close();
+                    }
+               }
+          } catch (SQLException e) {
+               Logger logger = Logger.getLogger(DbFunctions.class.getName());
+               logger.log(Level.SEVERE, "Error deleting transaction", e);
+               return false;
+          }
+     }
+
+     public static boolean addTransactionDetails(TransactionDetails transactionDetails) {
+          try {
+               Connection connection = connect();
+               boolean success;
+               try {
+                    PreparedStatement statement = connection.prepareStatement(
+                            "INSERT INTO transaction_details (transactionid, price, tva, price_no_tva, discount, total) VALUES (?, ?, ?, ?, ?, ?)"
+                    );
+
+                    try {
+                         statement.setInt(1, transactionDetails.getTransactionId());
+                         statement.setDouble(2, transactionDetails.getPrice());
+                         statement.setInt(3, transactionDetails.getTva());
+                         statement.setDouble(4, transactionDetails.getPriceNoTva());
+                         statement.setInt(5, transactionDetails.getDiscount());
+                         statement.setDouble(6, transactionDetails.getTotal());
+
+                         int rowsAffected = statement.executeUpdate();
+                         success = rowsAffected > 0;
+                    } catch (Throwable var8) {
+                         if (statement != null) {
+                              try {
+                                   statement.close();
+                              } catch (Throwable var7) {
+                                   var8.addSuppressed(var7);
+                              }
+                         }
+                         throw var8;
+                    } finally {
+                         if (statement != null) {
+                              statement.close();
+                         }
+                    }
+               } catch (Throwable var9) {
+                    if (connection != null) {
+                         try {
+                              connection.close();
+                         } catch (Throwable var6) {
+                              var9.addSuppressed(var6);
+                         }
+                    }
+                    throw var9;
+               } finally {
+                    if (connection != null) {
+                         connection.close();
+                    }
+               }
+
+               return success;
+          } catch (SQLException var10) {
+               Logger logger = Logger.getLogger(DbFunctions.class.getName());
+               logger.log(Level.SEVERE, "Error adding transaction details", var10);
+               return false;
+          }
+     }
+     public static boolean deleteTransactionDetails(int transactionId) {
+          try {
+               Connection connection = connect();
+               try {
+                    String query = "DELETE FROM transaction_details WHERE transactionid = ?";
                     PreparedStatement statement = connection.prepareStatement(query);
                     statement.setInt(1, transactionId);
                     int rowsAffected = statement.executeUpdate();
@@ -224,80 +297,80 @@ public class DbFunctions {
           }
      }
 
-     public static List<Transaction> getAllTransactions() {
-          List<Transaction> transactions = new ArrayList();
-          String query = "SELECT id, amount, transaction_date, description, measure_unit FROM transactions";
-
-
+     public static boolean addSupplier(Suppliers supplier) {
           try {
                Connection connection = connect();
 
+               boolean var5;
                try {
-                    Statement statement = connection.createStatement();
+                    PreparedStatement statement = connection.prepareStatement("INSERT INTO suppliers (name, address, phone_number, cui) VALUES (?, ?, ?,?)");
 
                     try {
-                         ResultSet resultSet = statement.executeQuery(query);
-
-                         try {
-                              while(resultSet.next()) {
-                                   int id = resultSet.getInt("id");
-                                   double amount = resultSet.getDouble("amount");
-                                   Date transactionDate = resultSet.getDate("transaction_date");
-                                   String description = resultSet.getString("description");
-                                   String measureUnit = resultSet.getString("measure_unit");
-                                   Transaction transaction = new Transaction(id,new Date((long)transactionDate.getDate()), description, amount, measureUnit);
-                                   transactions.add(transaction);
-                              }
-                         } catch (Throwable var14) {
-                              if (resultSet != null) {
-                                   try {
-                                        resultSet.close();
-                                   } catch (Throwable var13) {
-                                        var14.addSuppressed(var13);
-                                   }
-                              }
-
-                              throw var14;
-                         }
-
-                         if (resultSet != null) {
-                              resultSet.close();
-                         }
-                    } catch (Throwable var15) {
+                         statement.setString(1, supplier.getname());
+                         statement.setString(2, supplier.getaddress());
+                         statement.setString(3, supplier.getphone());
+                         statement.setString(4, supplier.getcui());
+                         int rowsAffected = statement.executeUpdate();
+                         var5 = rowsAffected > 0;
+                    } catch (Throwable var8) {
                          if (statement != null) {
                               try {
                                    statement.close();
-                              } catch (Throwable var12) {
-                                   var15.addSuppressed(var12);
+                              } catch (Throwable var7) {
+                                   var8.addSuppressed(var7);
                               }
                          }
 
-                         throw var15;
+                         throw var8;
                     }
 
                     if (statement != null) {
                          statement.close();
                     }
-               } catch (Throwable var16) {
+               } catch (Throwable var9) {
                     if (connection != null) {
                          try {
                               connection.close();
-                         } catch (Throwable var11) {
-                              var16.addSuppressed(var11);
+                         } catch (Throwable var6) {
+                              var9.addSuppressed(var6);
                          }
                     }
 
-                    throw var16;
+                    throw var9;
                }
 
                if (connection != null) {
                     connection.close();
                }
-          } catch (SQLException var17) {
-               Logger logger = Logger.getLogger(DbFunctions.class.getName());
-               logger.log(Level.SEVERE, "Error retrieving transactions", var17);
-          }
 
-          return transactions;
+               return var5;
+          } catch (SQLException var10) {
+               Logger logger = Logger.getLogger(DbFunctions.class.getName());
+               logger.log(Level.SEVERE, "Error adding supplier", var10);
+               return false;
+          }
      }
+     public static boolean deletesupplier(int supplierId){
+          try {
+               Connection connection = connect();
+               try {
+                    String query = "DELETE FROM suppliers WHERE id = ?";
+                    PreparedStatement statement = connection.prepareStatement(query);
+                    statement.setInt(1, supplierId);
+                    int rowsAffected = statement.executeUpdate();
+                    return rowsAffected > 0;
+               } finally {
+                    if (connection != null) {
+                         connection.close();
+                    }
+               }
+          } catch (SQLException e) {
+               Logger logger = Logger.getLogger(DbFunctions.class.getName());
+               logger.log(Level.SEVERE, "Error deleting supplier", e);
+               return false;
+          }
+     }
+
 }
+
+
