@@ -25,34 +25,6 @@ public class TransactionDetails {
         this.discount = new SimpleIntegerProperty(discount);
         this.total = new SimpleDoubleProperty(total);
     }
-
-    public boolean addTransactionDetails() {
-        try {
-            Connection connection = DbFunctions.connect();
-            try {
-                String query = "INSERT INTO transactions_details (transaction_id, price, tva, price_no_tva, discount, total) VALUES (?, ?, ?, ?, ?, ?)";
-                PreparedStatement statement = connection.prepareStatement(query);
-                statement.setInt(1, this.getTransactionId());
-                statement.setDouble(2, this.getPrice());
-                statement.setInt(3, this.getTva());
-                statement.setDouble(4, this.getPriceNoTva());
-                statement.setInt(5, this.getDiscount());
-                statement.setDouble(6, this.getTotal());
-                int rowsAffected = statement.executeUpdate();
-                return rowsAffected > 0;
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
-        } catch (SQLException e) {
-            Logger logger = Logger.getLogger(TransactionDetails.class.getName());
-            logger.log(Level.SEVERE, "Error adding transaction details", e);
-            return false;
-        }
-    }
-
-
     public SimpleIntegerProperty transactionIdProperty() {return transactionId;}
 
     public int getTransactionId() {return transactionId.get();}
