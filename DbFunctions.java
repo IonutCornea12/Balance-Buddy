@@ -7,6 +7,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -150,15 +152,16 @@ public class DbFunctions {
 
                boolean var5;
                try {
-                    PreparedStatement statement = connection.prepareStatement("INSERT INTO transactions (amount, transaction_date, description, measure_unit,supplier_name)  VALUES (?, ?, ?, ?,?)");
+                    PreparedStatement statement = connection.prepareStatement("INSERT INTO transactions (amount, transaction_date, description, measure_unit,supplier_name,id)  VALUES (?,?, ?, ?, ?,?)");
 
                     try {
-                         statement.setDouble(1, transaction.getAmount());
+                         statement.setFloat(1, transaction.getAmount());
                          Date sqlDate = new Date(transaction.getDate().getTime());
                          statement.setDate(2, sqlDate);
                          statement.setString(3, transaction.getDescription());
                          statement.setString(4, transaction.getMeasureUnit());
                          statement.setString(5, transaction.getsupplierName());
+                         statement.setInt(6, transaction.getId());
                          int rowsAffected = statement.executeUpdate();
                          var5 = rowsAffected > 0;
                     } catch (Throwable var8) {
@@ -232,11 +235,11 @@ public class DbFunctions {
 
                     try {
                          statement.setInt(1, transactionDetails.getTransactionId());
-                         statement.setDouble(2, transactionDetails.getPrice());
+                         statement.setFloat(2, transactionDetails.getPrice());
                          statement.setInt(3, transactionDetails.getTva());
-                         statement.setDouble(4, transactionDetails.getPriceNoTva());
+                         statement.setFloat(4, transactionDetails.getPriceNoTva());
                          statement.setInt(5, transactionDetails.getDiscount());
-                         statement.setDouble(6, transactionDetails.getTotal());
+                         statement.setFloat(6, transactionDetails.getTotal());
 
                          int rowsAffected = statement.executeUpdate();
                          success = rowsAffected > 0;
@@ -276,6 +279,7 @@ public class DbFunctions {
                return false;
           }
      }
+
      public static boolean deleteTransactionDetails(int transactionId) {
           try {
                Connection connection = connect();
@@ -350,7 +354,8 @@ public class DbFunctions {
                return false;
           }
      }
-     public static boolean deletesupplier(int supplierId){
+
+     public static boolean deletesupplier(int supplierId) {
           try {
                Connection connection = connect();
                try {
@@ -371,6 +376,53 @@ public class DbFunctions {
           }
      }
 
+
+     public static boolean addSummary(Summary summary) {
+               String query = "INSERT INTO summary (date, total) VALUES (?, ?)";
+
+               try (Connection con = connect();
+                    PreparedStatement pst = con.prepareStatement(query)) {
+
+
+                    Date sqlDateSum = new Date(summary.getDateSum().getTime());
+                    pst.setDate(1, sqlDateSum);
+
+                    pst.setFloat(2, summary.getTotalSum());
+
+                    int rowsAffected = pst.executeUpdate();
+                    return rowsAffected > 0;
+
+               } catch (SQLException e) {
+                    e.printStackTrace();
+                    return false;
+               }
+          }
+
+     public static boolean deleteSummary(int summaryId) {
+          try {
+               Connection connection = connect();
+               try {
+                    String query = "DELETE FROM summary WHERE id = ?";
+                    PreparedStatement statement = connection.prepareStatement(query);
+                    statement.setInt(1, summaryId);
+                    int rowsAffected = statement.executeUpdate();
+                    return rowsAffected > 0;
+               } finally {
+                    if (connection != null) {
+                         connection.close();
+                    }
+               }
+          } catch (SQLException e) {
+               Logger logger = Logger.getLogger(DbFunctions.class.getName());
+               logger.log(Level.SEVERE, "Error deleting summary", e);
+               return false;
+          }
+     }
+
+
 }
+
+
+
 
 
