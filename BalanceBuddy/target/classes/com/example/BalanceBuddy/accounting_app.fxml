@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="614.0" prefWidth="1171.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.BalanceBuddy.AccountingAppController">
+    <children>
+        <TabPane fx:id="mainTabPane" prefHeight="617.0" prefWidth="1171.0" VBox.vgrow="ALWAYS">
+            <tabs>
+                <Tab closable="false" text="Dashboard">
+                    <content>
+                        <VBox alignment="CENTER" prefHeight="255.0" prefWidth="534.0">
+                     <ImageView fitHeight="238.0" fitWidth="249.0" pickOnBounds="true" preserveRatio="true">
+                        <VBox.margin>
+                           <Insets bottom="150.0" />
+                        </VBox.margin>
+                        <image>
+                           <Image url="@BalanceBuddy.png" />
+                        </image>
+                     </ImageView>
+                     <Label fx:id="userEmailLabel" text="Welcome to BalanceBuddy: {AccountingAppController.userEmail}" textFill="#4c8647">
+                        <font>
+                           <Font size="24.0" />
+                        </font>
+                     </Label>
+                        </VBox>
+                    </content>
+                </Tab>
+                <Tab fx:id="transactionsTab" text="Transactions">
+                    <content>
+                        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="389.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
+                            <children>
+                                <AnchorPane layoutY="-29.0" maxHeight="-1.0" maxWidth="-1.0" prefHeight="608.0" prefWidth="1165.0" VBox.vgrow="ALWAYS">
+                                    <children>
+                                        <TableView fx:id="transactionTable" layoutY="33.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="318.0" prefWidth="1170.0">
+                                            <columns>
+                                                <TableColumn fx:id="idColumn" minWidth="10.0" prefWidth="75.0" text="ID" />
+                                                <TableColumn fx:id="amountColumn" minWidth="4.0" prefWidth="155.0" text="Amount" />
+                                                <TableColumn fx:id="dateColumn" prefWidth="178.0" text="Date" />
+                                                <TableColumn fx:id="measureUnitColumn" prefWidth="236.96954345703125" text="Measure Unit" />
+                                                <TableColumn fx:id="descriptionColumn" prefWidth="282.03045654296875" text="Description" />
+                                                <TableColumn fx:id="suppliertranzNameColumn" prefWidth="237.01214599609375" text="Supplier" />
+                                            </columns>
+                                        </TableView>
+                              <VBox layoutX="228.0" layoutY="385.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="96.0" prefWidth="827.0">
+                                 <children>
+                                    <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="747.0">
+                                       <children>
+                                          <TextField fx:id="idTextField" prefHeight="25.0" prefWidth="250.0" promptText="ID">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </TextField>
+                                                    <TextField fx:id="amountTextField" prefHeight="25.0" prefWidth="250.0" promptText="Amount">
+                                             <HBox.margin>
+                                                <Insets left="3.0" right="3.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                                    <TextField fx:id="measureUnitTextField" maxHeight="-Infinity" prefHeight="26.0" prefWidth="250.0" promptText="Measure Unit">
+                                             <HBox.margin>
+                                                <Insets left="3.0" right="3.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="45.0" top="10.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="747.0">
+                                       <children>
+                                          <TextField fx:id="dateTextField" prefHeight="25.0" prefWidth="250.0" promptText="Date">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </TextField>
+                                          <TextField fx:id="descriptionTextField" prefHeight="25.0" prefWidth="250.0" promptText="Description">
+                                             <HBox.margin>
+                                                <Insets left="3.0" right="3.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                          <TextField fx:id="suppliertranzNameTextField" maxHeight="-Infinity" prefHeight="26.0" prefWidth="250.0" promptText="Supplier">
+                                             <HBox.margin>
+                                                <Insets left="3.0" right="3.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="45.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                                        <Button fx:id="addTransactionButton" layoutX="429.0" layoutY="499.0" prefHeight="40.0" prefWidth="135.0" text="ADD" AnchorPane.rightAnchor="607.0" />
+                              <Button fx:id="deleteTransactionButton" layoutX="649.0" layoutY="498.0" prefHeight="40.0" prefWidth="135.0" text="DELETE" AnchorPane.leftAnchor="649.0" />
+                              <Button fx:id="refreshButton" layoutX="585.0" layoutY="541.0" mnemonicParsing="false" text="Refresh" />
+                              <TextField fx:id="searchTransactionField" layoutX="2.0" layoutY="353.0" prefHeight="28.0" prefWidth="1170.0" promptText="Search" />
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            <Tab text="Transactions details">
+               <content>
+                  <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="553.0" prefWidth="1171.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="527.0" prefWidth="1169.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <TableView fx:id="transactionDetailsTable" layoutX="-2.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="318.0" prefWidth="1172.0">
+                                 <columns>
+                                    <TableColumn fx:id="detailsTransactionIdColumn" prefWidth="112.48118162155151" text="Transaction ID" />
+                                    <TableColumn fx:id="detailsPriceColumn" minWidth="4.0" prefWidth="185.51882934570312" text="Price / Unit" />
+                                    <TableColumn fx:id="detailsTvaColumn" prefWidth="162.15066528320312" text="TVA (%)" />
+                                    <TableColumn fx:id="detailsPriceNoTvaColumn" prefWidth="216.62820434570312" text="Price (no TVA)" />
+                                    <TableColumn fx:id="detailsDiscountColumn" prefWidth="235.32025146484375" text="Discount (%)" />
+                                    <TableColumn fx:id="detailsTotalColumn" prefWidth="257.5723876953125" text="Total" />
+                                 </columns>
+                              </TableView>
+                              <HBox layoutX="187.0" layoutY="373.0" prefHeight="40.0" prefWidth="828.0" AnchorPane.bottomAnchor="114.0" AnchorPane.leftAnchor="187.0" AnchorPane.rightAnchor="156.0" AnchorPane.topAnchor="373.0">
+                                 <children>
+                                    <TextField fx:id="transactionIdTextField" prefHeight="26.0" prefWidth="200.0" promptText="ID">
+                                       <HBox.margin>
+                                          <Insets left="5.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                    <TextField fx:id="priceTextField" prefHeight="26.0" prefWidth="200.0" promptText="Price">
+                                       <HBox.margin>
+                                          <Insets left="3.0" right="3.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                    <TextField fx:id="tvaTextField" maxHeight="-Infinity" prefHeight="26.0" prefWidth="200.0" promptText="TVA">
+                                       <HBox.margin>
+                                          <Insets left="3.0" right="3.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                    <TextField fx:id="discountTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="200.0" promptText="DISCOUNT">
+                                       <HBox.margin>
+                                          <Insets left="3.0" right="3.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <Button fx:id="addDetailsButton" layoutX="436.0" layoutY="423.0" prefHeight="40.0" prefWidth="135.0" text="ADD" AnchorPane.rightAnchor="600.0" />
+                              <Button fx:id="deleteDetailsButton" layoutX="632.0" layoutY="423.0" prefHeight="40.0" prefWidth="135.0" text="DELETE" AnchorPane.leftAnchor="632.0" />
+                              <Button fx:id="refreshDetailsButton" layoutX="570.0" layoutY="476.0" mnemonicParsing="false" text="Refresh" />
+                              <TextField fx:id="searchTransactionDetailsField" layoutX="1.0" layoutY="325.0" prefHeight="28.0" prefWidth="1170.0" promptText="Search" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="suppliersTab" text="Suppliers">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="suppliersTable" layoutY="4.0" prefHeight="324.0" prefWidth="861.0">
+                          <columns>
+                              <TableColumn fx:id="supplierIdColumn" prefWidth="60.0" text="ID" />
+                            <TableColumn fx:id="supplierNameColumn" prefWidth="263.0" text="Name" />
+                            <TableColumn fx:id="supplierCUIColumn" prefWidth="150.0" text="CUI" />
+                              <TableColumn fx:id="supplierAddressColumn" prefWidth="208.0" text="Adress" />
+                              <TableColumn fx:id="supplierPhoneColumn" prefWidth="178.0" text="Phone Number" />
+                          </columns>
+                        </TableView>
+                        <HBox layoutX="21.0" layoutY="395.0" prefHeight="139.0" prefWidth="841.0">
+                           <children>
+                              <TextField fx:id="nameTextField" prefHeight="26.0" prefWidth="200.0" promptText="Name">
+                                 <HBox.margin>
+                                    <Insets left="3.0" right="3.0" />
+                                 </HBox.margin>
+                              </TextField>
+                              <TextField fx:id="cuiTextField" maxHeight="-Infinity" prefHeight="26.0" prefWidth="200.0" promptText="CUI">
+                                 <HBox.margin>
+                                    <Insets left="3.0" right="3.0" />
+                                 </HBox.margin>
+                              </TextField>
+                              <TextField fx:id="addressTextField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="200.0" promptText="ADRESS">
+                                 <HBox.margin>
+                                    <Insets left="3.0" right="3.0" />
+                                 </HBox.margin>
+                              </TextField>
+                              <TextField fx:id="phoneTextField" prefHeight="26.0" prefWidth="200.0" promptText="Phone Number" />
+                           </children>
+                        </HBox>
+                        <Button fx:id="addSuppliersButton" layoutX="286.0" layoutY="447.0" onAction="#refreshSuppliersFromDatabase" prefHeight="40.0" prefWidth="135.0" text="ADD" />
+                        <Button fx:id="deleteSuppliersButton" layoutX="464.0" layoutY="447.0" prefHeight="40.0" prefWidth="135.0" text="DELETE" />
+                        <Button fx:id="refreshSuppliersButton" layoutX="412.0" layoutY="498.0" mnemonicParsing="false" text="Refresh" />
+                        <TableView fx:id="supplierTransactionsTable" layoutX="859.0" layoutY="33.0" prefHeight="531.0" prefWidth="312.0">
+                          <columns>
+                            <TableColumn fx:id="suppliertransIdColumn" prefWidth="154.26800537109375" text="Supplier ID" />
+                            <TableColumn fx:id="transactionsuppIdColumn" prefWidth="157.23199462890625" text="Transaction ID" />
+                          </columns>
+                        </TableView>
+                        <TextField fx:id="searchSupplierTextField" layoutX="861.0" layoutY="4.0" prefHeight="28.0" prefWidth="220.0" promptText="Supplier Name" />
+                        <Button fx:id="searchButtonsuptrans" layoutX="1080.0" layoutY="4.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="91.0" text="Search" />
+                        <TextField fx:id="searchSupplierInfoTextField" layoutX="-1.0" layoutY="327.0" prefHeight="26.0" prefWidth="857.0" promptText="Search" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab fx:id="summaryTab" text="Summary">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="summaryTable" layoutY="4.0" prefHeight="324.0" prefWidth="1170.0">
+                           <columns>
+                              <TableColumn fx:id="idColumnSummary" prefWidth="196.0" text="ID" />
+                              <TableColumn fx:id="dateColumnSummary" prefWidth="554.6681976318359" text="Date" />
+                              <TableColumn fx:id="totalColumnSummary" prefWidth="418.331787109375" text="Total" />
+                           </columns>
+                        </TableView>
+                        <HBox layoutX="444.0" layoutY="379.0" prefHeight="51.0" prefWidth="221.0">
+                           <children>
+                              <TextField fx:id="dateTextFieldSummary" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="227.0" promptText="Date">
+                                 <HBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                        </HBox>
+                        <Button fx:id="addSummaryButton" layoutX="387.0" layoutY="448.0" onAction="#refreshSuppliersFromDatabase" prefHeight="40.0" prefWidth="135.0" text="ADD" />
+                        <Button fx:id="deleteSummaryButton" layoutX="636.0" layoutY="448.0" prefHeight="40.0" prefWidth="135.0" text="DELETE" />
+                        <Button fx:id="refreshSummaryButton" layoutX="495.0" layoutY="503.0" mnemonicParsing="false" text="Refresh" />
+                        <Button fx:id="updateSummaryButton" layoutX="615.0" layoutY="503.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" text="Update" />
+                        <TextField fx:id="searchSummaryTextField" layoutY="327.0" prefHeight="26.0" prefWidth="1171.0" promptText="Search" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</VBox>
